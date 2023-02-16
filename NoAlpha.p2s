@@ -1,0 +1,34 @@
+// PictBearスクリプト NoAlpha.p2s
+// カレントレイヤーからアルファ成分を削除する。
+// ※使用する前にいったん保存した後、レイヤーをすべて結合してください。
+// Copyright (C) 2008 片山博文MZ
+var
+    def: integer;
+    width, height: integer;
+    x, y: integer;
+    color: integer;
+    alpha: integer;
+begin
+    def := IsDefine('defPictBear');
+    if def = 0 then
+    begin
+        MessageBox('このスクリプトは PictBear 専用です。', 'PictBear', 0);
+        Exit;
+    end;
+
+    // NOTE: ここにスクリプトを記述してください
+    ModifyImage;
+    width := GetWidth;
+    height := GetHeight;
+    ProgressStart(0, width * height);
+    for y := 0 to height-1 do
+        for x := 0 to width-1 do
+        begin
+            color := GetPixel(x, y);
+            SetPixel(x, y, RGB(GetRValue(color), GetGValue(color), GetBValue(color)));
+            ProgressSetPos(x + y * width);
+        end;
+    end;
+    ProgressEnd;
+    UpdateView;
+end.

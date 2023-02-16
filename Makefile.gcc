@@ -1,0 +1,21 @@
+CFLAGS = -O2 -mno-cygwin
+RFLAGS = 
+
+all: IconMake.exe
+
+IconMake.exe: IconMake.o IconMake_res.o bitmap.o pngimage.o stream.o IconMake.rc
+	$(CXX) -mwindows $(CFLAGS) -o IconMake.exe IconMake_res.o IconMake.o bitmap.o pngimage.o stream.o -lpng -lz -lgdi32 -lcomdlg32
+IconMake_res.o: IconMake.rc
+	windres -i IconMake.rc -o IconMake_res.o
+
+IconMake.o: IconMake.h resource.h IconMake.cpp
+	$(CXX) $(CFLAGS) -c IconMake.cpp
+bitmap.o: IconMake.h stream.h pngimage.h bitmap.cpp
+	$(CXX) $(CFLAGS) -c bitmap.cpp
+pngimage.o: pngimage.h stream.h pngimage.cpp
+	$(CXX) $(CFLAGS) -c pngimage.cpp
+stream.o: stream.h stream.cpp
+	$(CXX) $(CFLAGS) -c stream.cpp
+
+clean:
+	rm *.o

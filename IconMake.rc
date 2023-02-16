@@ -1,0 +1,98 @@
+#include <windows.h>
+#include "resource.h"
+
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+
+1 ICON "IconMake.ico"
+
+1 MENU
+{
+    POPUP "Peach"
+    {
+        MENUITEM "このビットマップを削除(&D)\tDel",  ID_DELETE
+    }
+}
+
+1 DIALOG 0, 0, 300, 225
+STYLE DS_MODALFRAME | DS_CENTER | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX
+CAPTION "IconMake ver. 2.7"
+FONT 9, "ＭＳ Ｐゴシック"
+{
+    LTEXT           "画像リスト(&L):", -1, 5, 5, 115, 10
+    LISTBOX         ID_LIST, 5, 20, 115, 160, LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "追加(&A)...", ID_ADD, 5, 185, 35, 14
+    PUSHBUTTON      "削除(&D)", ID_DELETE, 43, 185, 35, 14
+    PUSHBUTTON      "↑", ID_UP, 88, 185, 15, 14
+    PUSHBUTTON      "↓", ID_DOWN, 105, 185, 15, 14
+    GROUPBOX        "プレビュー", -1, 125, 5, 70, 80
+    CONTROL         "", ID_PREVIEW, "STATIC", SS_BITMAP | SS_NOTIFY, 135, 20, 60, 60
+    GROUPBOX        "画像のプロパティ", -1, 200, 5, 90, 80
+    LTEXT           "", ID_PROPERTY, 205, 20, 80, 60
+    GROUPBOX        "透過処理", -1, 125, 90, 165, 110
+    AUTORADIOBUTTON "　　　　　　　　端のピクセル色を透過色とする(&P)", ID_USE_CORNER, 130, 105, 155, 14, NOT WS_TABSTOP
+    AUTORADIOBUTTON "透過色を指定する(&T)", ID_USE_COLOR, 130, 120, 75, 14, NOT WS_TABSTOP
+    AUTORADIOBUTTON "アルファマスク画像を使用する(&P)", ID_USE_ALPHA_MASK, 130, 135, 155, 14, NOT WS_TABSTOP
+    AUTORADIOBUTTON "アルファチャンネルを使用する(&N)", ID_USE_ALPHA_CH, 130, 165, 110, 14, NOT WS_TABSTOP
+    AUTOCHECKBOX    "PN&G形式で\n埋め込み", ID_PNG, 241, 168, 45, 23, BS_MULTILINE
+    AUTORADIOBUTTON "透過しない(&O)", ID_USE_ORIGINAL, 130, 180, 110, 14, NOT WS_TABSTOP
+    COMBOBOX        ID_CORNER, 141, 105, 30, 100, NOT WS_TABSTOP | CBS_DROPDOWNLIST | WS_VSCROLL
+    COMBOBOX        ID_COLOR, 209, 120, 66, 100, NOT WS_TABSTOP | CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | WS_VSCROLL
+    PUSHBUTTON      "アルファマスク画像(I)...", ID_ALPHA_BROWSE, 138, 149, 74, 14
+    LTEXT           "", ID_ALPHA_FILE, 217, 150, 70, 13
+    PUSHBUTTON      "作成(&E)", ID_CREATE, 180, 205, 35, 14
+    PUSHBUTTON      "クリア(&C)", ID_CLEAR, 217, 205, 35, 14
+    PUSHBUTTON      "終了(&X)", IDCANCEL, 255, 205, 35, 14
+}
+
+STRINGTABLE
+{
+    IDS_PROPERTY,               "幅:\t%d\r\n高さ:\t%d\r\nビットの深さ:\t%d\r\n"
+    IDS_BITMAP_BMP,             "ビットマップ画像 (*.bmp)"
+    IDS_ALL_FILES,              "すべてのファイル (*.*)"
+    IDS_OPEN_TO_ADD,            "追加するビットマップ画像を開く"
+    IDS_ICON_ICO,               "アイコンファイル (*.ico)"
+    IDS_CREATE_ICON,            "アイコンの作成"
+    IDS_UPPER_LEFT,             "左上"
+    IDS_LOWER_LEFT,             "左下"
+    IDS_UPPER_RIGHT,            "右上"
+    IDS_LOWER_RIGHT,            "右下"
+    IDS_INVALID,                "画像ファイルが無効です。"
+    IDS_ALPHA,                  "アルファ成分の画像を開く"
+    IDS_SIZE_DIFF,              "サイズが異なります。"
+    IDS_NO_ALPHA,               "アルファマスク画像が指定されていません。"
+    IDS_ALPHA_CH_INVALID,       "アルファチャンネルが無効です。"
+    IDS_BITMAP_PNG,             "ビットマップとPNG画像 (*.bmp;*.png)"
+}
+
+1 ACCELERATORS
+{
+    VK_DELETE, ID_DELETE, VIRTKEY
+}
+
+1 24 "IconMake.exe.Manifest"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     2,7,0,0
+PRODUCTVERSION  2,7,0,0
+FILEOS          VOS_NT_WINDOWS32
+FILETYPE        VFT_APP
+{
+    BLOCK "StringFileInfo"
+    {
+        BLOCK "041104B0"
+        {
+            VALUE "CompanyName", "片山博文MZ\0"
+            VALUE "FileDescription", "IconMake\0"
+            VALUE "FileVersion", "2.7\0"
+            VALUE "InternalName", "IconMake\0"
+            VALUE "LegalCopyright", "(C) 片山博文MZ. All rights reserved.\0"
+            VALUE "OriginalFilename", "IconMake.exe\0"
+            VALUE "ProductName", "IconMake\0"
+            VALUE "ProductVersion", "2.7\0"
+        }
+    }
+    BLOCK "VarFileInfo"
+    {
+        VALUE "Translation", 0x0411, 0x04B0
+    }
+}

@@ -1,0 +1,22 @@
+CFLAGS = -W -O2
+RFLAGS = 
+
+all: IconMake.exe
+
+IconMake.exe: IconMake.obj bitmap.obj pngimage.obj stream.obj IconMake.rc
+	$(CC) $(CFLAGS) /eIconMake.exe IconMake.obj bitmap.obj pngimage.obj stream.obj
+	brc32 IconMake.rc IconMake.exe
+
+IconMake.obj: IconMake.h resource.h IconMake.cpp
+	$(CC) $(CFLAGS) /c IconMake.cpp
+bitmap.obj: IconMake.h stream.h pngimage.h bitmap.cpp
+	$(CC) $(CFLAGS) /c bitmap.cpp
+pngimage.obj: pngimage.h stream.h pngimage.cpp
+	$(CC) $(CFLAGS) /c pngimage.cpp
+stream.obj: stream.h stream.cpp
+	$(CC) $(CFLAGS) /c stream.cpp
+
+clean:
+	if exist *.obj del *.obj
+	if exist *.tds del *.tds
+	if exist *.RES del *.RES
